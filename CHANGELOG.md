@@ -8,7 +8,7 @@ The format follows [Semantic Versioning](https://semver.org/): **MAJOR.MINOR.PAT
 - **MINOR** — backward-compatible new functionality
 - **PATCH** — backward-compatible bug fixes
 
-GrexCode is a fork of [OpenCode](https://github.com/sst/opencode) v1.17.9.
+GrexCode is a fork of [GrexCode](https://github.com/grexlabs/grexcode) v1.17.9.
 
 ---
 

@@ -1,4 +1,4 @@
-import type { WslDistroProbe, WslOpencodeCheck, WslServerItem } from "../../preload/types"
+import type { WslDistroProbe, WslGrexcodeCheck, WslServerItem } from "../../preload/types"
 
 export function wslServerIdToRestart(servers: WslServerItem[], distro: string) {
   return servers.find((item) => item.config.distro === distro)?.config.id
@@ -6,7 +6,7 @@ export function wslServerIdToRestart(servers: WslServerItem[], distro: string) {
 
 export function clearWslDistroState(
   distroProbes: Record<string, WslDistroProbe>,
-  grexcodeChecks: Record<string, WslOpencodeCheck>,
+  grexcodeChecks: Record<string, WslGrexcodeCheck>,
   distro: string,
 ) {
   const nextDistroProbes = { ...distroProbes }

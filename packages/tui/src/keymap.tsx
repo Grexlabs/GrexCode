@@ -23,13 +23,13 @@ export const COMMAND_PALETTE_COMMAND = "command.palette.show"
 
 const GREXCODE_MODE_KEY = "grexcode.mode"
 
-export const OpencodeKeymapProvider = KeymapProvider
-export const useOpencodeKeymap = useKeymap
+export const GrexcodeKeymapProvider = KeymapProvider
+export const useGrexcodeKeymap = useKeymap
 
 export { useBindings, useKeymapSelector }
 
 export type OpenTuiKeymap = ReturnType<typeof useKeymap>
-type OpencodeModeStack = ReturnType<typeof createOpencodeModeStack>
+type OpencodeModeStack = ReturnType<typeof createGrexcodeModeStack>
 type CommandSlashEntry = {
   display: string
   description?: string
@@ -50,7 +50,7 @@ function isVisiblePaletteCommand(command: Command) {
   return command.hidden !== true && command.name !== COMMAND_PALETTE_COMMAND
 }
 
-export function createOpencodeModeStack(keymap: OpenTuiKeymap) {
+export function createGrexcodeModeStack(keymap: OpenTuiKeymap) {
   keymap.setData(GREXCODE_MODE_KEY, GREXCODE_BASE_MODE)
 
   const offFields = keymap.registerLayerFields({
@@ -100,12 +100,12 @@ export function createOpencodeModeStack(keymap: OpenTuiKeymap) {
 }
 
 export function useOpencodeModeStack() {
-  return getOpencodeModeStack(useOpencodeKeymap())
+  return getOpencodeModeStack(useGrexcodeKeymap())
 }
 
 export function getOpencodeModeStack(keymap: OpenTuiKeymap) {
   const value = modeStacks.get(keymap)
-  if (!value) throw new Error("Opencode mode stack is not registered for this keymap")
+  if (!value) throw new Error("Grexcode mode stack is not registered for this keymap")
   return value
 }
 
@@ -211,8 +211,8 @@ export function formatKeyBindings(bindings: Parameters<typeof formatCommandBindi
   return formatCommandBindingsExtra(bindings, formatOptions(config))
 }
 
-export function registerOpencodeKeymap(keymap: OpenTuiKeymap, renderer: CliRenderer, config: ResolvedKeymapConfig) {
-  const modeStack = createOpencodeModeStack(keymap)
+export function registerGrexcodeKeymap(keymap: OpenTuiKeymap, renderer: CliRenderer, config: ResolvedKeymapConfig) {
+  const modeStack = createGrexcodeModeStack(keymap)
   const offCommaBindings = registerCommaBindings(keymap)
   const offAliasExpander = registerKeyAliases(keymap)
   const offBaseLayout = registerBaseLayoutFallback(keymap)
@@ -258,7 +258,7 @@ export function useCommandShortcut(command: string): Accessor<string> {
 }
 
 export function useCommandSlashes(): Accessor<readonly CommandSlashEntry[]> {
-  const keymap = useOpencodeKeymap()
+  const keymap = useGrexcodeKeymap()
   const entries = useKeymapSelector((keymap: OpenTuiKeymap) =>
     keymap.getCommandEntries({
       visibility: "reachable",

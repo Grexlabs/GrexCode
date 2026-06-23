@@ -7,14 +7,14 @@ import type {
   WorkspaceAdapter as PluginWorkspaceAdapter,
 } from "@grexlabs/plugin"
 import { Config } from "@/config/config"
-import { createOpencodeClient } from "@grexlabs/sdk"
+import { createGrexcodeClient } from "@grexlabs/sdk"
 import { ServerAuth } from "@/server/auth"
 import { CodexAuthPlugin } from "./openai/codex"
 import { Session } from "@/session/session"
 import { NamedError } from "@grexlabs/core/util/error"
 import { CopilotAuthPlugin } from "./github-copilot/copilot"
-import { gitlabAuthPlugin as GitlabAuthPlugin } from "grexcode-gitlab-auth"
-import { PoeAuthPlugin } from "grexcode-poe-auth"
+import { gitlabAuthPlugin as GitlabAuthPlugin } from "opencode-gitlab-auth"
+import { PoeAuthPlugin } from "opencode-poe-auth"
 import { CloudflareAIGatewayAuthPlugin, CloudflareWorkersAuthPlugin } from "./cloudflare"
 import { AzureAuthPlugin } from "./azure"
 import { DigitalOceanAuthPlugin } from "./digitalocean"
@@ -139,7 +139,7 @@ export const layer = Layer.effect(
         const { Server } = yield* Effect.promise(() => import("../server/server"))
 
         const serverUrl = Server.url
-        const client = createOpencodeClient({
+        const client = createGrexcodeClient({
           baseUrl: serverUrl?.toString() ?? "http://localhost:4096",
           directory: ctx.directory,
           headers: ServerAuth.headers(),

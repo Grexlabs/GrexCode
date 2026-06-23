@@ -1,4 +1,4 @@
-import type { WslOpencodeCheck, WslServerRuntime } from "./types"
+import type { WslGrexcodeCheck, WslServerRuntime } from "./types"
 
 export const wslRuntimeRetryable = (runtime: WslServerRuntime) =>
   runtime.kind === "failed" || runtime.kind === "stopped"
@@ -12,7 +12,7 @@ export async function enterWslOpencodeStep(
   select("grexcode")
 }
 
-export function wslOpencodeAction(check?: WslOpencodeCheck) {
+export function wslOpencodeAction(check?: WslGrexcodeCheck) {
   if (!check) return
   if (!check.resolvedPath) return "Install GrexCode"
   if (check.matchesDesktop === false) return "Update GrexCode"

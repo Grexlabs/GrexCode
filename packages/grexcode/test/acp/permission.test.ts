@@ -5,13 +5,13 @@ import type {
   RequestPermissionResponse,
   SessionUpdate,
 } from "@agentclientprotocol/sdk"
-import type { Event, OpencodeClient } from "@grexlabs/sdk/v2"
+import type { Event, GrexcodeClient } from "@grexlabs/sdk/v2"
 import { Effect, ManagedRuntime } from "effect"
 import { ACPEvent } from "@/acp/event"
 import { ACPSession } from "@/acp/session"
 
 type PermissionEvent = Extract<Event, { type: "permission.asked" }>
-type PermissionReplyParams = Parameters<OpencodeClient["permission"]["reply"]>[0]
+type PermissionReplyParams = Parameters<GrexcodeClient["permission"]["reply"]>[0]
 type SessionUpdateParams = Parameters<AgentSideConnection["sessionUpdate"]>[0]
 
 const pollUntil = async (
@@ -51,7 +51,7 @@ function createHarness(
     session: {
       message: () => Promise.resolve({ data: undefined }),
     },
-  } as unknown as OpencodeClient
+  } as unknown as GrexcodeClient
   const connection = {
     requestPermission: (params: RequestPermissionRequest) => {
       requests.push(params)

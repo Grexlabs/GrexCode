@@ -417,7 +417,7 @@ class HeyApiRegistry<T> {
   get(key?: string): T {
     const instance = this.instances.get(key ?? this.defaultKey)
     if (!instance) {
-      throw new Error(`No SDK client found. Create one with "new OpencodeClient()" to fix this error.`)
+      throw new Error(`No SDK client found. Create one with "new GrexcodeClient()" to fix this error.`)
     }
     return instance
   }

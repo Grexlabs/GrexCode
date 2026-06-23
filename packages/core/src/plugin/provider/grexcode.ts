@@ -3,7 +3,7 @@ import { define } from "../internal"
 import { ProviderV2 } from "../../provider"
 import { Integration } from "../../integration"
 
-export const OpencodePlugin = define({
+export const GrexcodePlugin = define({
   id: "grexcode",
   effect: Effect.fn(function* (ctx) {
     const integrations = yield* Integration.Service

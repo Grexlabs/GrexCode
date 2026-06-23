@@ -1,4 +1,4 @@
-import { createOpencodeClient } from "@grexlabs/sdk/v2"
+import { createGrexcodeClient } from "@grexlabs/sdk/v2"
 import type { GlobalEvent } from "@grexlabs/sdk/v2"
 import { Flag } from "@grexlabs/core/flag/flag"
 import { createSimpleContext } from "./helper"
@@ -21,7 +21,7 @@ export const { use: useSDK, provider: SDKProvider } = createSimpleContext({
     let sse: AbortController | undefined
 
     function createSDK() {
-      return createOpencodeClient({
+      return createGrexcodeClient({
         baseUrl: props.url,
         signal: abort.signal,
         directory: props.directory,

@@ -18,9 +18,9 @@ export const GenerateCommand = {
           {
             lang: "js",
             source: [
-              `import { createOpencodeClient } from "@grexlabs/sdk`,
+              `import { createGrexcodeClient } from "@grexlabs/sdk`,
               ``,
-              `const client = createOpencodeClient()`,
+              `const client = createGrexcodeClient()`,
               `await client.${operation.operationId}({`,
               `  ...`,
               `})`,

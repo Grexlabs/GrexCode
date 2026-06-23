@@ -148,7 +148,7 @@ export function DialogAddWslServer(props: DialogWslServerProps = {}) {
     }
     if (!distro || !distroReady()) return null
     if (!state.grexcodeChecks[distro]) {
-      return { key: `probe-grexcode:${distro}`, run: () => api.probeOpencode(distro) }
+      return { key: `probe-grexcode:${distro}`, run: () => api.probeGrexcode(distro) }
     }
     return null
   })
@@ -223,7 +223,7 @@ export function DialogAddWslServer(props: DialogWslServerProps = {}) {
         : language.t("wsl.onboarding.grexcodeReady")
     }
     return distro
-      ? language.t("wsl.onboarding.installOpencodeIn", { distro })
+      ? language.t("wsl.onboarding.installGrexcodeIn", { distro })
       : language.t("wsl.onboarding.chooseDistroFirst")
   })
 
@@ -249,7 +249,7 @@ export function DialogAddWslServer(props: DialogWslServerProps = {}) {
   const openOpencodeStep = () => {
     const distro = selectedDistro()
     if (!distro) return
-    void run(() => enterWslOpencodeStep(distro, api.probeOpencode, (step) => setStore("step", step)))
+    void run(() => enterWslOpencodeStep(distro, api.probeGrexcode, (step) => setStore("step", step)))
   }
 
   const finish = async () => {
@@ -546,7 +546,7 @@ export function DialogAddWslServer(props: DialogWslServerProps = {}) {
                         variant="ghost"
                         size="large"
                         disabled={busy()}
-                        onClick={() => runSelectedDistro((distro) => api.probeOpencode(distro))}
+                        onClick={() => runSelectedDistro((distro) => api.probeGrexcode(distro))}
                       >
                         {language.t("wsl.onboarding.refresh")}
                       </Button>
@@ -556,14 +556,14 @@ export function DialogAddWslServer(props: DialogWslServerProps = {}) {
                         variant="secondary"
                         size="large"
                         disabled={busy()}
-                        onClick={() => runSelectedDistro((distro) => api.installOpencode(distro))}
+                        onClick={() => runSelectedDistro((distro) => api.installGrexcode(distro))}
                       >
                         <Show when={installingOpencode()}>
                           <Spinner class="size-4 shrink-0" />
                         </Show>
                         {grexcodeCheck()?.resolvedPath
                           ? language.t("wsl.onboarding.updateOpencode")
-                          : language.t("wsl.onboarding.installOpencode")}
+                          : language.t("wsl.onboarding.installGrexcode")}
                       </Button>
                     </Show>
                   </div>

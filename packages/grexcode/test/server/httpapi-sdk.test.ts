@@ -8,7 +8,7 @@ import { ChildProcessSpawner } from "effect/unstable/process"
 import { FSUtil } from "@grexlabs/core/fs-util"
 import { CrossSpawnSpawner } from "@grexlabs/core/cross-spawn-spawner"
 import { Flag } from "@grexlabs/core/flag/flag"
-import { createOpencodeClient } from "@grexlabs/sdk/v2"
+import { createGrexcodeClient } from "@grexlabs/sdk/v2"
 import { validateSession } from "../../src/cli/tui/validate-session"
 import { InstanceBootstrap } from "../../src/project/bootstrap-service"
 import { InstanceStore } from "../../src/project/instance-store"
@@ -46,7 +46,7 @@ const original = {
 }
 
 type ServerPath = "default" | "raw"
-type Sdk = ReturnType<typeof createOpencodeClient>
+type Sdk = ReturnType<typeof createGrexcodeClient>
 type SdkResult = { response: Response; data?: unknown; error?: unknown }
 type Captured = { status: number; data?: unknown; error?: unknown }
 type ProjectFixture = { sdk: Sdk; directory: string }
@@ -71,7 +71,7 @@ function client(
 ) {
   return serverFetch(serverPath, input).pipe(
     Effect.map((fetch) =>
-      createOpencodeClient({
+      createGrexcodeClient({
         baseUrl: "http://localhost",
         directory,
         experimental_workspaceID: input?.workspaceID,

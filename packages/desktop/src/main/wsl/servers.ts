@@ -3,7 +3,7 @@ import type {
   WslInstalledDistro,
   WslJob,
   WslOnlineDistro,
-  WslOpencodeCheck,
+  WslGrexcodeCheck,
   WslRuntimeCheck,
   WslServerConfig,
   WslServerItem,
@@ -17,7 +17,7 @@ import { expectOpencodeVersion, pendingRestartAfterWslInstall, wslServerIdsToSta
 import { clearWslDistroState, wslServerIdToRestart } from "./policy"
 import {
   installWslDistro,
-  installWslOpencode,
+  installWslGrexcode,
   installWslRuntimeElevated,
   listInstalledWslDistros,
   listOnlineWslDistros,
@@ -25,7 +25,7 @@ import {
   probeWslDistro,
   probeWslRuntime,
   readWslCommandVersion,
-  resolveWslOpencode,
+  resolveWslGrexcode,
   summarize,
 } from "./runtime"
 
@@ -47,7 +47,7 @@ type WslServersControllerOptions = {
   logger?: ControllerLogger
   readServers?: () => WslServerConfig[]
   writeServers?: (servers: WslServerConfig[]) => void
-  resolveOpencode?: typeof resolveWslOpencode
+  resolveOpencode?: typeof resolveWslGrexcode
   readCommandVersion?: typeof readWslCommandVersion
 }
 
@@ -119,7 +119,7 @@ export function createWslServersController(
     updateServer(id, (item) => ({ ...item, runtime }))
   }
 
-  const setOpencodeCheck = (distro: string, check: WslOpencodeCheck) => {
+  const setOpencodeCheck = (distro: string, check: WslGrexcodeCheck) => {
     setState({
       grexcodeChecks: {
         ...state.grexcodeChecks,
@@ -129,7 +129,7 @@ export function createWslServersController(
   }
 
   const checkOpencode = async (distro: string, opts?: { signal?: AbortSignal }) => {
-    const resolved = await (options?.resolveOpencode ?? resolveWslOpencode)(distro, opts)
+    const resolved = await (options?.resolveOpencode ?? resolveWslGrexcode)(distro, opts)
     const version = resolved
       ? await (options?.readCommandVersion ?? readWslCommandVersion)(resolved, distro, opts)
       : null
@@ -342,7 +342,7 @@ export function createWslServersController(
 
     async installOpencode(name: string) {
       await runJob({ kind: "install-grexcode", distro: name, startedAt: Date.now() }, async (abort) => {
-        const result = await installWslOpencode(appVersion, name, { signal: abort.signal })
+        const result = await installWslGrexcode(appVersion, name, { signal: abort.signal })
         if (result.code !== 0) {
           throw new Error(summarize(result.stderr || result.stdout) || "GrexCode installation failed")
         }
@@ -449,7 +449,7 @@ function grexcodeCheck(
   resolvedPath: string | null,
   version: string | null,
   expectedVersion: string,
-): WslOpencodeCheck {
+): WslGrexcodeCheck {
   if (!resolvedPath) {
     return {
       distro,
@@ -490,7 +490,7 @@ export type {
   WslOnlineDistro,
   WslRuntimeCheck,
   WslDistroProbe,
-  WslOpencodeCheck,
+  WslGrexcodeCheck,
   WslServerConfig,
   WslServerItem,
   WslServerRuntime,
