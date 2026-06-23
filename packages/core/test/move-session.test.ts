@@ -4,20 +4,20 @@ import fs from "fs/promises"
 import path from "path"
 import { eq } from "drizzle-orm"
 import { Effect, Layer } from "effect"
-import { MoveSession } from "@opencode-ai/core/control-plane/move-session"
-import { Database } from "@opencode-ai/core/database/database"
-import { FSUtil } from "@opencode-ai/core/fs-util"
-import { Git } from "@opencode-ai/core/git"
-import { EventV2 } from "@opencode-ai/core/event"
-import { Project } from "@opencode-ai/core/project"
-import { ProjectTable } from "@opencode-ai/core/project/sql"
-import { ProjectDirectories } from "@opencode-ai/core/project/directories"
-import { AbsolutePath } from "@opencode-ai/core/schema"
-import { SessionV2 } from "@opencode-ai/core/session"
-import { SessionExecution } from "@opencode-ai/core/session/execution"
-import { SessionProjector } from "@opencode-ai/core/session/projector"
-import { SessionTable } from "@opencode-ai/core/session/sql"
-import { SessionStore } from "@opencode-ai/core/session/store"
+import { MoveSession } from "@grexlabs/core/control-plane/move-session"
+import { Database } from "@grexlabs/core/database/database"
+import { FSUtil } from "@grexlabs/core/fs-util"
+import { Git } from "@grexlabs/core/git"
+import { EventV2 } from "@grexlabs/core/event"
+import { Project } from "@grexlabs/core/project"
+import { ProjectTable } from "@grexlabs/core/project/sql"
+import { ProjectDirectories } from "@grexlabs/core/project/directories"
+import { AbsolutePath } from "@grexlabs/core/schema"
+import { SessionV2 } from "@grexlabs/core/session"
+import { SessionExecution } from "@grexlabs/core/session/execution"
+import { SessionProjector } from "@grexlabs/core/session/projector"
+import { SessionTable } from "@grexlabs/core/session/sql"
+import { SessionStore } from "@grexlabs/core/session/store"
 import { tmpdir } from "./fixture/tmpdir"
 import { testEffect } from "./lib/effect"
 
@@ -65,7 +65,7 @@ async function initRepo(directory: string) {
   await $`git config core.autocrlf false`.cwd(directory).quiet()
   await $`git config core.fsmonitor false`.cwd(directory).quiet()
   await $`git config commit.gpgsign false`.cwd(directory).quiet()
-  await $`git config user.email test@opencode.test`.cwd(directory).quiet()
+  await $`git config user.email test@grexcode.test`.cwd(directory).quiet()
   await $`git config user.name Test`.cwd(directory).quiet()
   await fs.writeFile(path.join(directory, "tracked.txt"), "initial\n")
   await $`git add tracked.txt`.cwd(directory).quiet()

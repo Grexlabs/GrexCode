@@ -1,10 +1,10 @@
-import type { PluginContext } from "@opencode-ai/plugin/v2/effect"
-import { AgentV2 } from "@opencode-ai/core/agent"
-import { Catalog } from "@opencode-ai/core/catalog"
-import { Integration } from "@opencode-ai/core/integration"
-import { ModelV2 } from "@opencode-ai/core/model"
-import { ProviderV2 } from "@opencode-ai/core/provider"
-import type { IntegrationEnvMethod, IntegrationKeyMethod, IntegrationOAuthMethod } from "@opencode-ai/sdk/v2/types"
+import type { PluginContext } from "@grexlabs/plugin/v2/effect"
+import { AgentV2 } from "@grexlabs/core/agent"
+import { Catalog } from "@grexlabs/core/catalog"
+import { Integration } from "@grexlabs/core/integration"
+import { ModelV2 } from "@grexlabs/core/model"
+import { ProviderV2 } from "@grexlabs/core/provider"
+import type { IntegrationEnvMethod, IntegrationKeyMethod, IntegrationOAuthMethod } from "@grexlabs/sdk/v2/types"
 import { Effect } from "effect"
 
 type Overrides = Partial<Omit<PluginContext, "options">>

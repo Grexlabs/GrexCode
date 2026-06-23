@@ -1,24 +1,24 @@
-import type { Session } from "@opencode-ai/sdk/v2/client"
+import type { Session } from "@grexlabs/sdk/v2/client"
 import { batch, createEffect, createMemo, For, Match, on, onCleanup, onMount, Show, Switch } from "solid-js"
 import { makeEventListener } from "@solid-primitives/event-listener"
 import { createStore } from "solid-js/store"
 import { useQuery } from "@tanstack/solid-query"
-import { Button } from "@opencode-ai/ui/button"
-import { Logo } from "@opencode-ai/ui/logo"
-import { Spinner } from "@opencode-ai/ui/spinner"
-import { ScrollView } from "@opencode-ai/ui/scroll-view"
-import { ProjectAvatar } from "@opencode-ai/ui/v2/project-avatar-v2"
-import { ButtonV2 } from "@opencode-ai/ui/v2/button-v2"
-import { Icon as IconV2 } from "@opencode-ai/ui/v2/icon"
-import { IconButtonV2 } from "@opencode-ai/ui/v2/icon-button-v2"
-import { MenuV2 } from "@opencode-ai/ui/v2/menu-v2"
+import { Button } from "@grexlabs/ui/button"
+import { Logo } from "@grexlabs/ui/logo"
+import { Spinner } from "@grexlabs/ui/spinner"
+import { ScrollView } from "@grexlabs/ui/scroll-view"
+import { ProjectAvatar } from "@grexlabs/ui/v2/project-avatar-v2"
+import { ButtonV2 } from "@grexlabs/ui/v2/button-v2"
+import { Icon as IconV2 } from "@grexlabs/ui/v2/icon"
+import { IconButtonV2 } from "@grexlabs/ui/v2/icon-button-v2"
+import { MenuV2 } from "@grexlabs/ui/v2/menu-v2"
 import { getProjectAvatarVariant, useLayout, type LocalProject } from "@/context/layout"
 import { useNavigate } from "@solidjs/router"
-import { base64Encode } from "@opencode-ai/core/util/encode"
-import { Icon } from "@opencode-ai/ui/icon"
+import { base64Encode } from "@grexlabs/core/util/encode"
+import { Icon } from "@grexlabs/ui/icon"
 import { usePlatform } from "@/context/platform"
 import { DateTime } from "luxon"
-import { useDialog } from "@opencode-ai/ui/context/dialog"
+import { useDialog } from "@grexlabs/ui/context/dialog"
 import { useDirectoryPicker } from "@/components/directory-picker"
 import { DialogSelectServer, useServerManagementController } from "@/components/dialog-select-server"
 import { DialogServerV2 } from "@/components/settings-v2/dialog-server-v2"
@@ -351,7 +351,7 @@ export function NewHome() {
           clearNotifications={clearNotifications}
           unseenCount={unseenCount}
           openSettings={openSettings}
-          openHelp={() => platform.openLink("https://opencode.ai/desktop-feedback")}
+          openHelp={() => platform.openLink("https://grexlabs.in/desktop-feedback")}
           language={language}
         />
 
@@ -423,7 +423,7 @@ export function NewHome() {
         <HomeUtilityNav
           class="flex lg:hidden"
           openSettings={openSettings}
-          openHelp={() => platform.openLink("https://opencode.ai/desktop-feedback")}
+          openHelp={() => platform.openLink("https://grexlabs.in/desktop-feedback")}
           language={language}
         />
       </div>

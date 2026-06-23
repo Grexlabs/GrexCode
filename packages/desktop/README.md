@@ -1,6 +1,6 @@
-# OpenCode Desktop
+# GrexCode Desktop
 
-The OpenCode Desktop app, built with Electron.
+The GrexCode Desktop app, built with Electron.
 
 ## Development
 

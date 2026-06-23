@@ -1,18 +1,18 @@
 import { describe, expect } from "bun:test"
 import { Effect, Schema } from "effect"
-import { AbsolutePath, Location, Model, OpenCode, Session, Tool } from "@opencode-ai/core/public"
+import { AbsolutePath, Location, Model, GrexCode, Session, Tool } from "@grexlabs/core/public"
 import { testEffect } from "./lib/effect"
 
-const it = testEffect(OpenCode.layer)
+const it = testEffect(GrexCode.layer)
 
-describe("public native OpenCode API", () => {
+describe("public native GrexCode API", () => {
   it.effect("exposes only the intentional Session capabilities", () =>
     Effect.gen(function* () {
-      const opencode = yield* OpenCode.Service
+      const grexcode = yield* GrexCode.Service
 
-      expect(Object.keys(opencode).sort()).toEqual(["sessions", "tools"])
+      expect(Object.keys(grexcode).sort()).toEqual(["sessions", "tools"])
 
-      expect(Object.keys(opencode.sessions).sort()).toEqual([
+      expect(Object.keys(grexcode.sessions).sort()).toEqual([
         "context",
         "create",
         "events",
@@ -26,8 +26,8 @@ describe("public native OpenCode API", () => {
       ])
       expect(Session.ID.create()).toStartWith("ses_")
       expect(Session.MessageID.create()).toStartWith("msg_")
-      expect(yield* opencode.sessions.list()).toBeArray()
-      yield* opencode.tools.register({
+      expect(yield* grexcode.sessions.list()).toBeArray()
+      yield* grexcode.tools.register({
         public_tool: Tool.make({
           description: "Public tool",
           input: Schema.Struct({}),
@@ -40,29 +40,29 @@ describe("public native OpenCode API", () => {
 
   it.effect("records model selection without resolving the Location catalog", () =>
     Effect.gen(function* () {
-      const opencode = yield* OpenCode.Service
+      const grexcode = yield* GrexCode.Service
       const sessionID = Session.ID.make("ses_public_switch_deferred")
       const model = Schema.decodeUnknownSync(Model.Ref)({
         id: "missing",
         providerID: "missing",
         variant: "unknown",
       })
-      yield* opencode.sessions.create({
+      yield* grexcode.sessions.create({
         id: sessionID,
         location: Location.Ref.make({ directory: AbsolutePath.make("/public-session-switch-model") }),
       })
 
-      yield* opencode.sessions.switchModel({ sessionID, model })
+      yield* grexcode.sessions.switchModel({ sessionID, model })
 
-      expect((yield* opencode.sessions.get(sessionID)).model).toEqual(model)
+      expect((yield* grexcode.sessions.get(sessionID)).model).toEqual(model)
     }),
   )
 
   it.effect("preserves the typed not-found error for a missing Session", () =>
     Effect.gen(function* () {
-      const opencode = yield* OpenCode.Service
+      const grexcode = yield* GrexCode.Service
       const sessionID = Session.ID.make("ses_public_switch_missing")
-      const error = yield* opencode.sessions
+      const error = yield* grexcode.sessions
         .switchModel({
           sessionID,
           model: Schema.decodeUnknownSync(Model.Ref)({ id: "claude-sonnet-4-5", providerID: "anthropic" }),

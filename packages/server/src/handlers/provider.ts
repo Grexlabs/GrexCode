@@ -1,5 +1,5 @@
-import { Catalog } from "@opencode-ai/core/catalog"
-import { ProviderV2 } from "@opencode-ai/core/provider"
+import { Catalog } from "@grexlabs/core/catalog"
+import { ProviderV2 } from "@grexlabs/core/provider"
 import { Effect } from "effect"
 import { HttpApiBuilder } from "effect/unstable/httpapi"
 import { Api } from "../api"
